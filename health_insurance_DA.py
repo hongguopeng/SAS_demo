@@ -94,11 +94,99 @@ sas.submit("proc sql;\
             where ({}) and &condition5.;\
             quit;".format(condition_conbine))
 
+
+sas.submit("proc sql;\
+            create table NH.Dd2008_target as\
+            select *\
+            from NH.Dd2008_disease\
+            where ({}) and &condition5.;\
+            quit;".format(condition_conbine))
+
 sas.submit("proc sql;\
             create table NH.Dd2008_target_patient_list as\
             select distinct(ID) as ID\
             from NH.Dd2008_target\
             quit;")
+
+
+
+# 取出倒數第 n 筆資料(這裡是取倒數第2筆資料)
+# 兩種方法 way 1 & way2
+sas.submit("proc sql;\
+            create table NH.Dd2008_target_sort as\
+            select ID , IN_DATE   \
+            from NH.Dd2008_target ;  \
+            quit; \
+            proc sort nodupkey data = NH.Dd2008_target_sort  \
+            out = NH.Dd2008_target_sort ;   \
+            by _ALL_;   \
+            run;")
+
+sas.submit("data NH.Dd2008_target_sort_count;   \
+            set NH.Dd2008_target_sort;   \
+            by ID;   \
+            first = first.ID; \
+            last = last.ID;   \
+            retain count 0;    \
+            if first then count = 0;  \
+            count = count + 1;   \
+            run;")  
+            
+sas.submit("data NH.Dd2008_target_sort_total_count;   \
+            set NH.Dd2008_target_sort;   \
+            by ID;   \
+            first = first.ID; \
+            last = last.ID;   \
+            retain total_count 0;    \
+            if first then total_count = 0;  \
+            total_count = total_count + 1;   \
+            if last; \
+            run;")  
+
+Dd2008_target_sort_total_count_df = sas.sd2df(table = 'Dd2008_target_sort_total_count' , libref = 'NH') 
+Dd2008_target_sort_total_count_df['total_count'] = Dd2008_target_sort_total_count_df['total_count'].astype('int')
+                        
+# way 1
+table_content_1 = ''
+for id_ , total_count in zip(Dd2008_target_sort_total_count_df['ID'] , Dd2008_target_sort_total_count_df['total_count']):  
+    for _ in range(0 , total_count):
+        table_content_1 += "values('{}', {})".format(id_ , total_count - 1)          # 這裡是取倒數第2筆資料 ➠ total_count - 1
+            
+sas.submit("proc sql; \
+            create table NH.countdown_1  \
+            (ID char(100) , freq num);  \
+            quit;")   
+            
+sas.submit("proc sql; \
+            insert into  \
+            NH.countdown_1 \
+            (ID , freq) \
+            {};".format(table_content_1))     
+            
+sas.submit("data NH.countdown_1; \
+            merge NH.Dd2008_target_sort_count  NH.countdown_1;  \
+            by ID;  \
+            run;")
+ 
+sas.submit("data NH.countdown_1; \
+            set NH.countdown_1; \
+            if freq = count and freq > 0 then output;  \
+            run;")         
+ 
+  
+# way 2  
+table_content_2 = '' 
+for id_ , total_count in zip(Dd2008_target_sort_total_count_df['ID'] , Dd2008_target_sort_total_count_df['total_count']):   
+    table_content_2 += "if ID = '{}' then freq = {};".format(id_ , total_count - 1)  # 這裡是取倒數第2筆資料 ➠ total_count - 1  
+sas.submit("data NH.countdown_2; \
+            set NH.Dd2008_target_sort_count; \
+            {} \
+            run;".format(table_content_2)) 
+
+sas.submit("data NH.countdown_2; \
+            set NH.countdown_2; \
+            if freq = count and freq > 0 then output;  \
+            run;")                
 
 
 
@@ -653,3 +741,15 @@ drug_percentage = sas.submit("proc sql;     \
                               from Nh.drug_percentage;   \
                               quit;".format(table_content))  
 show_html(drug_percentage['LST'] , 'drug_percentage') 
+
+
+drug_percentage = sas.submit("proc sql;     \
+                              create table Nh.test   \
+                              (drug char(20) , drug_percentage num);   \
+                              insert into   \
+                              Nh.test  \
+                              (drug , drug_percentage)  \
+                              values('Repeat 3 Times' , 3) \
+                              values('Repeat 2 Times' , 3) \
+                              values('Repeat 3 Times' , 4);\
+                              quit;")  

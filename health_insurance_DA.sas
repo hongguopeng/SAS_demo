@@ -156,6 +156,44 @@ run;
 %create_after2008_stroke_dataset;
 
 
+%macro specify_order; 
+	proc sql;
+        create table NH.Dd2008_target_sort as
+        select ID , IN_DATE 
+        from NH.Dd2008_target ;  
+        quit; 
+        proc sort nodupkey data = NH.Dd2008_target_sort  
+        out = NH.Dd2008_target_sort ;   
+        by _ALL_;   
+    run;
+
+	data NH.Dd2008_target_sort_count;   
+        set NH.Dd2008_target_sort;   
+        by ID;   
+        first = first.ID; 
+        last = last.ID;   
+        retain count 0;    
+        if first then count = 0;  
+        count = count + 1;   
+    run;
+
+	proc sql;	
+		create table NH.Dd2008_target_sort_count as
+		select * , max(count) as max_count
+		from NH.Dd2008_target_sort_count 
+		group by ID;
+	quit;
+
+	data NH.Dd2008_target_sort_count;   
+        set NH.Dd2008_target_sort_count;   
+		max_count = max_count - 1;
+		if max_count = count then output;
+    run;
+
+%mend specify_order; 
+%specify_order; 
+
+
 %macro after2008_stroke_percentage; 
 	/*	留下ID stroke這兩個attribute*/
 	data NH.Dd2008_target_stroke_happen;
