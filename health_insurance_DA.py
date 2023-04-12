@@ -54,9 +54,9 @@ NH = sas.saslib(libref = 'NH' , path = '{}//{}'.format(os.getcwd() , 'SAS_datase
 # 住院主診斷碼、次診斷碼任一個診斷碼符合皆算確診
 for i in range(0 , 4):
     if i == 0:
-        symput('condition{}'.format(i + 1) , "substr(ICD9CM_CODE , 1 , 3)  in  ('410' '411' ' 412' '413' '414')")
+        symput('condition{}'.format(i + 1) , "substr(ICD9CM_CODE , 1 , 3)  in  ('410' '411' '412' '413' '414')")
     else:
-        symput('condition{}'.format(i + 1) , "substr(ICD9CM_CODE_{} , 1 , 3)  in  ('410' '411' ' 412' '413' '414')".format(i))
+        symput('condition{}'.format(i + 1) , "substr(ICD9CM_CODE_{} , 1 , 3)  in  ('410' '411' '412' '413' '414')".format(i))
 
 
 
@@ -122,6 +122,13 @@ sas.submit("proc sql;\
             by _ALL_;   \
             run;")
 
+
+# count欄位紀錄每個病患就診的累加次數
+#   ID     IN_DATE   count
+#  pppp    20080101    1
+#  pppp    20080110    2
+#  pppp    20080203    3
+#  pppp    20080305    4
 sas.submit("data NH.Dd2008_target_sort_count;   \
             set NH.Dd2008_target_sort;   \
             by ID;   \
@@ -131,7 +138,10 @@ sas.submit("data NH.Dd2008_target_sort_count;   \
             if first then count = 0;  \
             count = count + 1;   \
             run;")  
-            
+ 
+# total_count欄位紀錄每個病患就診的總次數   
+#   ID     IN_DATE   total_count
+#  pppp    20080305      4                
 sas.submit("data NH.Dd2008_target_sort_total_count;   \
             set NH.Dd2008_target_sort;   \
             by ID;   \
@@ -151,7 +161,16 @@ table_content_1 = ''
 for id_ , total_count in zip(Dd2008_target_sort_total_count_df['ID'] , Dd2008_target_sort_total_count_df['total_count']):  
     for _ in range(0 , total_count):
         table_content_1 += "values('{}', {})".format(id_ , total_count - 1)          # 這裡是取倒數第2筆資料 ➠ total_count - 1
-            
+     
+
+# 再建立一個 NH.countdown_1
+# NH.Dd2008_target_sort_total_count 的 total_count 為 4 ，代表就診總次數為 4， 倒數第2筆資料的話就是 4-1 ， 代表要將此 ID 的資料複製 3 次 
+#   ID     IN_DATE   total_count    ➠     NH.countdown_1
+#  pppp    20080305      4          ➠      ID     freq
+#                                   ➠      pppp     3
+#                                   ➠      pppp     3
+#                                   ➠      pppp     3
+#                                   ➠      pppp     3        
 sas.submit("proc sql; \
             create table NH.countdown_1  \
             (ID char(100) , freq num);  \
@@ -162,7 +181,8 @@ sas.submit("proc sql; \
             NH.countdown_1 \
             (ID , freq) \
             {};".format(table_content_1))     
-            
+ 
+# NH.Dd2008_target_sort_count 與 NH.countdown_1 的 ID 欄位一模一樣，這裡的 merge 只是在做橫向拼接(concat)而已            
 sas.submit("data NH.countdown_1; \
             merge NH.Dd2008_target_sort_count  NH.countdown_1;  \
             by ID;  \
@@ -175,6 +195,8 @@ sas.submit("data NH.countdown_1; \
  
   
 # way 2  
+# way 2 的方法與 way_1 基本上相同
+# 多建立一個 freq 的欄位，而每個 ID 要塞入 freq 的值都記錄在 table_content_2 中
 table_content_2 = '' 
 for id_ , total_count in zip(Dd2008_target_sort_total_count_df['ID'] , Dd2008_target_sort_total_count_df['total_count']):   
     table_content_2 += "if ID = '{}' then freq = {};".format(id_ , total_count - 1)  # 這裡是取倒數第2筆資料 ➠ total_count - 1  
@@ -741,15 +763,3 @@ drug_percentage = sas.submit("proc sql;     \
                               from Nh.drug_percentage;   \
                               quit;".format(table_content))  
 show_html(drug_percentage['LST'] , 'drug_percentage') 
-
-
-drug_percentage = sas.submit("proc sql;     \
-                              create table Nh.test   \
-                              (drug char(20) , drug_percentage num);   \
-                              insert into   \
-                              Nh.test  \
-                              (drug , drug_percentage)  \
-                              values('Repeat 3 Times' , 3) \
-                              values('Repeat 2 Times' , 3) \
-                              values('Repeat 3 Times' , 4);\
-                              quit;")  
