@@ -1,1092 +1,0 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta charset="Big5-HKSCS"/>
-<meta content="SAS 9.4" name="generator"/>
-<title>SAS 輸出</title>
-<style>
-/*<![CDATA[*/
-.body.c section > table, .body.c section > pre, .body.c div > table,
-.body.c div > pre, .body.c article > table, .body.c article > pre,
-.body.j section > table, .body.j section > pre, .body.j div > table,
-.body.j div > pre, .body.j article > table, .body.j article > pre,
-.body.c p.note, .body.c p.warning, .body.c p.error, .body.c p.fatal,
-.body.j p.note, .body.j p.warning, .body.j p.error, .body.j p.fatal,
-.body.c > table.layoutcontainer, .body.j > table.layoutcontainer { margin-left: auto; margin-right: auto }
-.layoutregion.l table, .layoutregion.l pre, .layoutregion.l p.note,
-.layoutregion.l p.warning, .layoutregion.l p.error, .layoutregion.l p.fatal { margin-left: 0 }
-.layoutregion.c table, .layoutregion.c pre, .layoutregion.c p.note,
-.layoutregion.c p.warning, .layoutregion.c p.error, .layoutregion.c p.fatal { margin-left: auto; margin-right: auto }
-.layoutregion.r table, .layoutregion.r pre, .layoutregion.r p.note,
-.layoutregion.r table, .layoutregion.r pre, .layoutregion.r p.note,
-.layoutregion.r p.warning, .layoutregion.r p.error, .layoutregion.r p.fatal { margin-right: 0 }
-article, aside, details, figcaption, figure, footer, header, hgroup, nav, section { display: block }
-html{ font-size: 100% }
-.body { margin: 1em; font-size: 13px; line-height: 1.231 }
-sup { position: relative; vertical-align: baseline; bottom: 0.25em; font-size: 0.8em }
-sub { position: relative; vertical-align: baseline; top: 0.25em; font-size: 0.8em }
-ul, ol { margin: 1em 0; padding: 0 0 0 40px }
-dd { margin: 0 0 0 40px }
-nav ul, nav ol { list-style: none; list-style-image: none; margin: 0; padding: 0 }
-img { border: 0; vertical-align: middle }
-svg:not(:root) { overflow: hidden }
-figure { margin: 0 }
-table { border-collapse: collapse; border-spacing: 0 }
-.layoutcontainer { border-collapse: separate; border-spacing: 0 }
-p { margin-top: 0; text-align: left }
-span { text-align: left }
-table { margin-bottom: 1em }
-td, th { text-align: left; padding: 3px 6px; vertical-align: top }
-td[class$="fixed"], th[class$="fixed"] { white-space: pre }
-section, article { padding-top: 1px }
-hr.pagebreak { height: 0px; border: 0; border-bottom: 1px solid #c0c0c0; margin: 1em 0 }
-.stacked-value { text-align: left; display: block }
-.stacked-cell > .stacked-value, td.data > td.data, th.data > td.data, th.data > th.data, td.data > th.data, th.header > th.header { border: 0 }
-.systitleandfootercontainer { white-space: nowrap; margin-bottom: 1em }
-.systitleandfootercontainer > p { margin: 0 }
-.systitleandfootercontainer > p > span { display: inline-block; width: 100%; white-space: normal }
-.batch { display: table }
-.toc { display: none }
-.proc_note_group, .proc_title_group { margin-bottom: 1em }
-p.proctitle { margin: 0 }
-p.note, p.warning, p.error, p.fatal { display: table }
-.notebanner, .warnbanner, .errorbanner, .fatalbanner,
-.notecontent, .warncontent, .errorcontent, .fatalcontent { display: table-cell; padding: 0.5em }
-.notebanner, .warnbanner, .errorbanner, .fatalbanner { padding-right: 0 }
-.body > div > ol li { text-align: left }
-.c { text-align: center }
-.r { text-align: right }
-.l { text-align: left }
-.j { text-align: justify }
-.d { text-align: right }
-.b { vertical-align: bottom }
-.m { vertical-align: middle }
-.t { vertical-align: top }
-.aftercaption {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-    padding-top: 4pt;
-}
-.batch > colgroup {
-    border-left: 1px solid #c1c1c1;
-    border-right: 1px solid #c1c1c1;
-}
-.batch > tbody, .batch > thead, .batch > tfoot {
-    border-top: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
-}
-.batch { border: hidden; }
-.batch {
-    background-color: #fafbfe;
-    border: 1px solid #c1c1c1;
-    border-collapse: separate;
-    border-spacing: 1px;
-    color: #000000;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    padding: 7px;
-    }
-.beforecaption {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.body {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    margin-left: 8px;
-    margin-right: 8px;
-}
-.bodydate {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    text-align: right;
-    vertical-align: top;
-    width: 100%;
-}
-.bycontentfolder {
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: none;
-    margin-left: 6pt;
-}
-.byline {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.bylinecontainer > col, .bylinecontainer > colgroup > col, .bylinecontainer > colgroup, .bylinecontainer > tr, .bylinecontainer > * > tr, .bylinecontainer > thead, .bylinecontainer > tbody, .bylinecontainer > tfoot { border: none; }
-.bylinecontainer {
-    background-color: #fafbfe;
-    border: none;
-    border-spacing: 1px;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    width: 100%;
-}
-.caption {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.cell, .container {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.contentfolder, .contentitem {
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: none;
-    margin-left: 6pt;
-}
-.contentproclabel, .contentprocname {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.contents {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: decimal;
-    margin-left: 8px;
-    margin-right: 8px;
-}
-.contentsdate {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    width: 100%;
-}
-.contenttitle {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: bold;
-}
-.continued {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-    width: 100%;
-}
-.data, .dataemphasis {
-    background-color: #ffffff;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.dataemphasisfixed {
-    background-color: #ffffff;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.dataempty {
-    background-color: #ffffff;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.datafixed {
-    background-color: #ffffff;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.datastrong {
-    background-color: #ffffff;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.datastrongfixed {
-    background-color: #ffffff;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #000000;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.date {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    width: 100%;
-}
-.document {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.errorbanner {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.errorcontent {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.errorcontentfixed {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.extendedpage {
-    background-color: #fafbfe;
-    border-style: solid;
-    border-width: 1pt;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-    text-align: center;
-}
-.fatalbanner {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.fatalcontent {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.fatalcontentfixed {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.folderaction {
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: none;
-    margin-left: 6pt;
-}
-.footer {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.footeremphasis {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.footeremphasisfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.footerempty {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.footerfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.footerstrong {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.footerstrongfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.frame {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.graph > colgroup {
-    border-left: 1px solid #c1c1c1;
-    border-right: 1px solid #c1c1c1;
-}
-.graph > tbody, .graph > thead, .graph > tfoot {
-    border-top: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
-}
-.graph { border: hidden; }
-.graph {
-    background-color: #fafbfe;
-    border: 1px solid #c1c1c1;
-    border-collapse: separate;
-    border-spacing: 1px;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    }
-.header {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.headeremphasis {
-    background-color: #d8dbd3;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.headeremphasisfixed {
-    background-color: #d8dbd3;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #000000;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.headerempty {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.headerfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.headersandfooters {
-    background-color: #edf2f9;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.headerstrong {
-    background-color: #d8dbd3;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.headerstrongfixed {
-    background-color: #d8dbd3;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #000000;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.index {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.indexaction, .indexitem {
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: none;
-    margin-left: 6pt;
-}
-.indexprocname {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.indextitle {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: bold;
-}
-.layoutcontainer > col, .layoutcontainer > colgroup > col, .layoutcontainer > colgroup, .layoutcontainer > tr, .layoutcontainer > * > tr, .layoutcontainer > thead, .layoutcontainer > tbody, .layoutcontainer > tfoot, .layoutregion > col, .layoutregion > colgroup > col, .layoutregion > colgroup, .layoutregion > tr, .layoutregion > * > tr, .layoutregion > thead, .layoutregion > tbody, .layoutregion > tfoot { border: none; }
-.layoutcontainer, .layoutregion {
-    border: none;
-    border-spacing: 30px;
-    }
-.linecontent {
-    background-color: #fafbfe;
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.list {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: disc;
-}
-.list10 {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: square;
-}
-.list2 {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: circle;
-}
-.list3, .list4, .list5, .list6, .list7, .list8, .list9 {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: square;
-}
-.listitem {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: disc;
-}
-.listitem10 {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: square;
-}
-.listitem2 {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: circle;
-}
-.listitem3, .listitem4, .listitem5, .listitem6, .listitem7, .listitem8, .listitem9 {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: square;
-}
-.note {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.notebanner {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.notecontent {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.notecontentfixed {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.output > colgroup {
-    border-left: 1px solid #c1c1c1;
-    border-right: 1px solid #c1c1c1;
-}
-.output > tbody, .output > thead, .output > tfoot {
-    border-top: 1px solid #c1c1c1;
-    border-bottom: 1px solid #c1c1c1;
-}
-.output { border: hidden; }
-.output {
-    background-color: #fafbfe;
-    border: 1px solid #c1c1c1;
-    border-collapse: separate;
-    border-spacing: 1px;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    }
-.pageno {
-    background-color: #fafbfe;
-    border-spacing: 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-    text-align: right;
-    vertical-align: top;
-}
-.pages {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: decimal;
-    margin-left: 8px;
-    margin-right: 8px;
-}
-.pagesdate {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    width: 100%;
-}
-.pagesitem {
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    list-style-type: none;
-    margin-left: 6pt;
-}
-.pagesproclabel, .pagesprocname {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.pagestitle {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: bold;
-}
-.paragraph {
-    background-color: #fafbfe;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.parskip > col, .parskip > colgroup > col, .parskip > colgroup, .parskip > tr, .parskip > * > tr, .parskip > thead, .parskip > tbody, .parskip > tfoot { border: none; }
-.parskip {
-    border: none;
-    border-spacing: 0;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-    }
-.prepage {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    text-align: left;
-}
-.proctitle {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.proctitlefixed {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowfooter {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowfooteremphasis {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.rowfooteremphasisfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.rowfooterempty {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowfooterfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.rowfooterstrong {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowfooterstrongfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowheader {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowheaderemphasis {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.rowheaderemphasisfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: italic;
-    font-weight: normal;
-}
-.rowheaderempty {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowheaderfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.rowheaderstrong {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.rowheaderstrongfixed {
-    background-color: #edf2f9;
-    border-color: #b0b7bb;
-    border-style: solid;
-    border-width: 0 1px 1px 0;
-    color: #112277;
-    font-family: MingLiu, Courier, monospace, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.systemfooter, .systemfooter10, .systemfooter2, .systemfooter3, .systemfooter4, .systemfooter5, .systemfooter6, .systemfooter7, .systemfooter8, .systemfooter9 {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.systemtitle, .systemtitle10, .systemtitle2, .systemtitle3, .systemtitle4, .systemtitle5, .systemtitle6, .systemtitle7, .systemtitle8, .systemtitle9 {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size: small;
-    font-style: normal;
-    font-weight: bold;
-}
-.systitleandfootercontainer > col, .systitleandfootercontainer > colgroup > col, .systitleandfootercontainer > colgroup, .systitleandfootercontainer > tr, .systitleandfootercontainer > * > tr, .systitleandfootercontainer > thead, .systitleandfootercontainer > tbody, .systitleandfootercontainer > tfoot { border: none; }
-.systitleandfootercontainer {
-    background-color: #fafbfe;
-    border: none;
-    border-spacing: 1px;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    width: 100%;
-}
-.table > col, .table > colgroup > col {
-    border-left: 1px solid #c1c1c1;
-    border-right: 0 solid #c1c1c1;
-}
-.table > tr, .table > * > tr {
-    border-top: 1px solid #c1c1c1;
-    border-bottom: 0 solid #c1c1c1;
-}
-.table { border: hidden; }
-.table {
-    border-color: #c1c1c1;
-    border-style: solid;
-    border-width: 1px 0 0 1px;
-    border-collapse: collapse;
-    border-spacing: 0;
-    }
-.titleandnotecontainer > col, .titleandnotecontainer > colgroup > col, .titleandnotecontainer > colgroup, .titleandnotecontainer > tr, .titleandnotecontainer > * > tr, .titleandnotecontainer > thead, .titleandnotecontainer > tbody, .titleandnotecontainer > tfoot { border: none; }
-.titleandnotecontainer {
-    background-color: #fafbfe;
-    border: none;
-    border-spacing: 1px;
-    color: #000000;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-    width: 100%;
-}
-.titlesandfooters {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.usertext {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.warnbanner {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: bold;
-}
-.warncontent {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: HeiT, HeiT, Helvetica, Helv, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-.warncontentfixed {
-    background-color: #fafbfe;
-    color: #112277;
-    font-family: MingLiu, Courier, sans-serif;
-    font-size:  normal;
-    font-style: normal;
-    font-weight: normal;
-}
-/*]]>*/
-</style>
-</head><body class="l body">
-<h1 class="body toc">SAS 輸出</h1><section data-name="SQL" data-sec-type="proc"><div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><h1 class="contentprocname toc"> SQL 程序</h1><article><h1 class="contentitem toc">查詢結果</h1><table class="table" style="border-spacing: 0"><colgroup><col/></colgroup><thead><tr><th class="r b header" scope="col">stroke_percentage</th></tr></thead><tbody><tr><td class="r data">0.10101</td></tr></tbody></table></article></section><hr><h1 class="body toc">SAS 輸出</h1><section data-name="SQL" data-sec-type="proc"><div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><h1 class="contentprocname toc"> SQL 程序</h1><article><h1 class="contentitem toc">查詢結果</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/></colgroup><thead><tr><th class="r b header" scope="col">mean_age</th><th class="r b header" scope="col">std_age</th></tr></thead><tbody><tr><td class="r data">85.09293</td><td class="r data">10.68027</td></tr></tbody></table></article></section><hr><h1 class="body toc">SAS 輸出</h1><section data-name="SQL" data-sec-type="proc"><div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><h1 class="contentprocname toc"> SQL 程序</h1><article><h1 class="contentitem toc">查詢結果</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/></colgroup><thead><tr><th class="b header" scope="col">ID_SEX</th><th class="r b header" scope="col">sex_percent</th></tr></thead><tbody><tr><td class="data">F</td><td class="r data">0.388456</td></tr><tr><td class="data">M</td><td class="r data">0.611544</td></tr></tbody></table></article></section><hr><h1 class="body toc">SAS 輸出</h1><section data-name="SQL" data-sec-type="proc"><div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><h1 class="contentprocname toc"> SQL 程序</h1><article><h1 class="contentitem toc">查詢結果</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/></colgroup><thead><tr><th class="b header" scope="col">disease</th><th class="r b header" scope="col">disease_percentage</th></tr></thead><tbody><tr><td class="data">高血壓</td><td class="r data">0.592133</td></tr><tr><td class="data">高血糖</td><td class="r data">0.332298</td></tr><tr><td class="data">高血脂</td><td class="r data">0.101449</td></tr><tr><td class="data">慢性腎臟病</td><td class="r data">0.018634</td></tr><tr><td class="data">慢性阻塞性肺部疾病</td><td class="r data">0.135611</td></tr></tbody></table></article></section><hr><h1 class="body toc">SAS 輸出</h1><section data-name="SQL" data-sec-type="proc"><div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><h1 class="contentprocname toc"> SQL 程序</h1><article><h1 class="contentitem toc">查詢結果</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/></colgroup><thead><tr><th class="b header" scope="col">drug</th><th class="r b header" scope="col">drug_percentage</th></tr></thead><tbody><tr><td class="data">ANTIHYPERTENSIVE</td><td class="r data">0</td></tr><tr><td class="data">bblocker</td><td class="r data">0.062201</td></tr><tr><td class="data">Metformin</td><td class="r data">0.291866</td></tr><tr><td class="data">Statin</td><td class="r data">0.416268</td></tr></tbody></table></article></section><hr><h1 class="body toc">SAS 輸出</h1><section data-name="Lifetest" data-sec-type="proc"><div id="IDX" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><div class="proc_title_group"><p class="c proctitle">LIFETEST 程序</p></div><h1 class="contentprocname toc"> LIFETEST 程序</h1><article><h1 class="contentitem toc">受限摘要</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/></colgroup><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th class="c b header" colspan="6" scope="colgroup">設限和未設限值的數目摘要</th></tr><tr><th class="r b header" scope="col">分層</th><th class="b header" scope="col">ID_SEX</th><th class="r b header" scope="col">總計</th><th class="r b header" scope="col">失敗</th><th class="r b header" scope="col">設限</th><th class="r b header" scope="col">百分比<br/>設限</th></tr></thead><tbody><tr><th class="r rowheader" scope="row">1</th><th class="data">F</th><td class="r data">1346</td><td class="r data">140</td><td class="r data">1206</td><td class="r data">89.60</td></tr><tr><th class="r rowheader" scope="row">2</th><th class="data">M</th><td class="r data">2119</td><td class="r data">210</td><td class="r data">1909</td><td class="r data">90.09</td></tr><tr><th class="r rowheader" scope="row">總計</th><th class="data">&#160;</th><td class="r data">3465</td><td class="r data">350</td><td class="r data">3115</td><td class="r data">89.90</td></tr></tbody></table></article><section><h1 class="contentfolder toc">分層均齊性</h1><hr class="pagebreak"/><div id="IDX1" class="systitleandfootercontainer" style="border-spacing: 1px"><p><span class="c systemtitle">SAS 系統</span> </p></div><div class="proc_title_group"><p class="c proctitle">LIFETEST 程序</p></div><div class="proc_note_group"><p class="c proctitle">分層上 analysis_value 之存活曲線的檢定均齊性</p></div><article><h1 class="contentitem toc">排名統計值</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/><col/></colgroup><thead><tr><th class="c b header" colspan="3" scope="colgroup">秩統計值</th></tr><tr><th class="b header" scope="col">ID_SEX</th><th class="r b header" scope="col">對數排名</th><th class="r b header" scope="col">Wilcoxon</th></tr></thead><tbody><tr><th class="rowheader" scope="row">F</th><td class="r data">4.1110</td><td class="r data">10187</td></tr><tr><th class="rowheader" scope="row">M</th><td class="r data" style="white-space: nowrap">-4.1110</td><td class="r data" style="white-space: nowrap">-10187</td></tr></tbody></table></article><article id="IDX2"><h1 class="contentitem toc">對數排名共變異數</h1><table class="table" style="border-spacing: 0"><colgroup><col/></colgroup><colgroup><col/><col/></colgroup><thead><tr><th class="c b header" colspan="3" scope="colgroup">對數排名統計值的共變異數矩陣</th></tr><tr><th class="b header" scope="col">ID_SEX</th><th class="r b header" scope="col">F</th><th class="r b header" scope="col">M</th></tr></thead><tbody><tr><th class="rowheader" scope="row">F</th><td class="r data">83.1205</td><td class="r data" style="white-space: nowrap">-83.1205</td></tr><tr><th class="rowheader" scope="row">M</th><td class="r data" style="white-space: nowrap">-83.1205</td><td class="r data">83.1205</td></tr></tbody></table></article><article id="IDX3"><h1 class="contentitem toc">Wilcoxon 共變異數</h1><table class="table" style="border-spacing: 0"><colgroup><col/></colgroup><colgroup><col/><col/></colgroup><thead><tr><th class="c b header" colspan="3" scope="colgroup">Wilcoxon 統計值的共變異數矩陣</th></tr><tr><th class="b header" scope="col">ID_SEX</th><th class="r b header" scope="col">F</th><th class="r b header" scope="col">M</th></tr></thead><tbody><tr><th class="rowheader" scope="row">F</th><td class="r data">8.7087E8</td><td class="r data" style="white-space: nowrap">-8.709E8</td></tr><tr><th class="rowheader" scope="row">M</th><td class="r data" style="white-space: nowrap">-8.709E8</td><td class="r data">8.7087E8</td></tr></tbody></table></article><article id="IDX4"><h1 class="contentitem toc">均齊性檢定</h1><table class="table" style="border-spacing: 0"><colgroup><col/><col/><col/><col/></colgroup><thead><tr><th class="c b header" colspan="4" scope="colgroup">分層相等性的檢定</th></tr><tr><th class="b header" scope="col">檢定</th><th class="r b header" scope="col">卡方</th><th class="r b header" scope="col">自由度</th><th class="c b header" scope="col">Pr &gt;<br/>卡方</th></tr></thead><tbody><tr><th class="rowheader" scope="row">對數排名</th><td class="r data">0.2033</td><td class="r data">1</td><td class="r data">0.6520</td></tr><tr><th class="rowheader" scope="row">Wilcoxon</th><td class="r data">0.1192</td><td class="r data">1</td><td class="r data">0.7299</td></tr><tr><th class="rowheader" scope="row">-2Log(LR)</th><td class="r data">0.2183</td><td class="r data">1</td><td class="r data">0.6404</td></tr></tbody></table></article></section><article id="IDX5"><h1 class="contentitem toc">存活曲線</h1><div class="c"><img style="height: 480px; width: 640px" alt="含有有風險主題數目的乘積極限存活曲線" src="data:image/png;base64,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FUWZP39+SkpK7969CwoKzPvfuXPnwIEDKyoqnD5XUZTbb7+9RYsW6enpu3btMjY6NWHfeOONG2+8UUSys7PfeOMN8x6eeuqpZ555Rq9evUaOHLl3717vOwQABBYB7M2ECROGDBly8uTJYcOGTZgwQd945513/utf/9qwYcPmzZuNBxatXr36q6++EpG//vWvhw4deuedd0aMGGHs57vvvtu2bdvy5cvHjh1rbDx58uStt966dOnS+Ph4148ePnz4sWPHxo4de/fdd+tbtLpEZM+ePS1atBCRxMREPUENn3zyycSJE2NjY/v166dXrEePHi1atIiPj8/KyjL+mNB9+OGHAwcO9L5DAECAFRcXa6Fk165d7dq169SpU7t27bZv325+ac6cOXFxcSKSkJAwb948zfQkPp0v+5+/YLGnl1z3EBcXV11drWlaZWVlXFycvvGMM8748ssvt2zZcsYZZxhvPHHihL68cePGq666qnXr1sbezLs1b7zjjjv+/Oc/e69JdXW18bmuBxsTE2O8xbysr/773//WNG3RokXnnnuusb26unrWrFkDBgwwF77kkks2bdrkfYcAAN95yRpdcXFxyLWAr7/++hEjRpSXlw8bNiw7O9v80pQpUx599FFN0/Ly8iZOnKhvNB9PMOpTU1OjL0RF1Z6rmTNn/upXv8rIyJg3b55RLDY2Vl/Izs6+7rrrfvjhh3r3XFFRsXLlyv3793v/dONznX54IpKSknLs2DEROXLkSOfOnc1vTElJufTSS0UkJydn+/btxvaoqKh77rnniy++MLbceeed9957b9++fb3vEAAQWCEXwEVFRc8884yIzJw5s6SkxPxSTEyM3uV74MABvSkcbEOGDJkxY4aIPPbYY4MHD9Y3Tp8+vaysrLy8fOTIka5vsdlsWVlZ69atq3fnf/3rX+fOnXvLLbcYGW+Wn58vIk888cSwYcM87WHUqFGvvvqqiLz88sujRo0yvzR8+PAFCxaIyIoVK84//3xje01NzYwZM66++mp9NTc3t3///saBeNkhACDAQq0LWtx12OocDkd0dLSIREdHOxwOTdNiYmL0o0hOTv7Pf/7jtKt/rFk7f8Fi139ePtqgb/n+++8vvvjimJiYiy66aPfu3frG6dOn62Wio6OXL1/uVM9FixbFxcXl5eVJfV3Q+sKSJUvuuusu15pkZ2dH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kWF1dYBafDMb6YEHHliwYIHVtQgzBLCfbDbbDz/8ICLl5eU2m83q6oQZm822cuXKo0ePirszybn1nS9nj/PpO76Z/undu/fdd989cuRI4TvZEASwn9LS0u677z4RmTJlSt++fa2uTpipqqoaOnRoly5dxN2Z5Nz6zpezx/n0Hd9MP2RkZPTr12/GjBn6Kt/JBmAQln927drVoUOHjh07tmvXbvv27VZXJ2zExMToX7yePXvu3r1bc3cmObfeiWm4kC9nj/PpiflM8s30mzlQNL6TPmMQFgAAFmAQFgAA1iCAAQCwAAEMAIAFCGAAACxAAAMAYAECGAAACxDAAABYgAAGAMACBDAAABYggAEAsAABDACABQhgAAAsQAADAGABAhgAAAsQwAAAWIAABgDAAgQwAAAWIICB5kJRFB9LtmjRwsJPB5oJAhiAs2PHjlldBSDyEcBAmOndu3dUVFSLFi1WrFihb1EUZfr06TExMYqi3HnnnZ6KiUhpaanNZjNWbTbbjh07RGT8+PGKohgvGa1Vp+2uduzYERsba6zGxMToO3T76U47Ny/v2bOnc+fOiqK0bt1669atDTohQLgqLi7WAISbuXPnRkdH68si8stf/nL79u1z586NioryUkzTtE6dOi1atEjTtEWLFrVp08Z46cMPPzTepZd03e5WUlLS8uXLNU1bunSpsUNPn25eMC+fd955Q4cOraysHDx4cJ8+fXw6BUA4Ky4uVoqLi9PS0qz7AwCAnxRF0TTNvOC07LbY73//+y+//HLDhg0DBw7s0qXLG2+8ISIxMTEHDhxo1aqV01uctrt1zTXXHDx4sLCwMCMjo127dm+++ab3SrqtbXR09NGjR+Pj4ysqKlq2bFldXd348wOEspKSErqggTDz17/+tWPHjlFR9fzyeio2c+bMzz//XET++9//3n///frG2bNn9+nTx263OxX2tN3sgQce+Oyzz0Tkk08+mTp1aoMqaaipqUlISFAUJSEhoaamxsd3AeGNLmggvNhstpycnMOHD4vXTl0vxbp27frII48kJCSYd7tlyxa9Peq0Q/N2TxISEvLy8sw79PLpbmsbHR1dWVlZ36EDkaO4uJgWMBBmFEWZOnXqn/70Jz+KlZaWisjYsWNnzJhx6aWXml/6+eef3e7H03azX//61zNmzBg4cKAvnx4VFfXCCy/s2bPn7LPPNl4aNGjQVVddVVVVVe9nARGDAAbCTE5OTp8+fd5///2GFps4cWKvXr1EJDc3t6qqatKkScZLUVFRF1100e233+60E0/bnfzf//3fiRMnJk+e7Mun33bbbRMnTkxNTb3pppuMVwsLCw8dOqQP5DYPqwYiGIOwgGanoqKic+fOBw4csLoiQPPFICygObrmmmv69etndS2A5s7j/fUAIlJ0dHRcXJw+XUaDeJpLUqt71xMAHxHAQPPi9y22BC0QWHRBAwBgAQIYAAALEMAAAFiAAAYAwAIEMAAAFiCAAQCwAAEMAIAFCGAAACxAAAMAYAECGAAACxDAAABYwCYiJSUl223CIgAAAA1JREFUVlcDAIDm5f8BYTTHZP/TbVMAAAAASUVORK5CYII="/></div></article></section>
-</body>
-</html>
