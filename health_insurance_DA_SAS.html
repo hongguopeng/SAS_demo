@@ -16068,6 +16068,7 @@ p.note, p.warning, p.error, p.fatal { display: table }
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-sas"><pre><span></span><span class="c">/*存活分析*/</span>
 <span class="c">/*需要2008缺血性心臟病患者最早入院日期，與該群人最早中風的住院日期*/</span>
+<span class="c">/*因為沒有記錄病人死亡的時間，因此把第一次中風的時間當作死亡時間*/</span>
 <span class="nb">%macro</span> after2008_stroke_interval_surv; 
     <span class="nb">%do</span> i=<span class="m">2009</span> <span class="nb">%to</span> <span class="m">2011</span>; 
         <span class="nb">%if</span>  <span class="nv">&amp;i.</span> = <span class="m">2009</span> <span class="nb">%then</span> <span class="nb">%do</span><span class="kr">;</span>
