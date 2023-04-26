@@ -13,11 +13,10 @@ libname NH 'C:\Users\Hong Guo-Peng\Desktop\SAS_demo\SAS_healthy_insurance_demo\S
 
 /*2008年患有缺血性心臟病(即心肌梗塞)者(ICD9-CM 診斷碼：410-414 )*/
 /*住院主診斷碼、次診斷碼任一個診斷碼符合皆算確診*/
-%let condition1 = substr(ICD9CM_CODE , 1 , 3)  in  ('410' '411' ' 412' '413' '414');
-%let condition2 = substr(ICD9CM_CODE_1 , 1 , 3)  in  ('410' '411' ' 412' '413' '414');
-%let condition3 = substr(ICD9CM_CODE_2 , 1 , 3)  in  ('410' '411' ' 412' '413' '414');
-%let condition4 = substr(ICD9CM_CODE_3 , 1 , 3)  in  ('410' '411' ' 412' '413' '414');
-
+%let condition1 = substr(ICD9CM_CODE , 1 , 3)  in  ('410' '411' '412' '413' '414');
+%let condition2 = substr(ICD9CM_CODE_1 , 1 , 3)  in  ('410' '411' '412' '413' '414');
+%let condition3 = substr(ICD9CM_CODE_2 , 1 , 3)  in  ('410' '411' '412' '413' '414');
+%let condition4 = substr(ICD9CM_CODE_3 , 1 , 3)  in  ('410' '411' '412' '413' '414');
 
 /**macro variable 格式 怎麼看? ->基本上都文字 */
 data _null_;
@@ -63,7 +62,8 @@ run;
 
 %mend find_patient_list; 
 %find_patient_list;
-		
+	
+	
 /*找出2008年患有缺血性心臟病，並在2009年後發生腦血管疾病者*/
 /*2009年後發生腦血管疾病者 (ICD-9-CM：430-437)*/
 %let condition1 = substr(ICD9CM_CODE , 1 , 3)  in  ('430' '431' '432' '433' '434'  '435'  '436'  '437');        
@@ -232,6 +232,7 @@ run;
 
 /*	存活分析*/	
 /*	需要2008缺血性心臟病患者最早入院日期，與該群人最早中風的住院日期*/	
+/*	因為沒有記錄病人死亡的時間，因此把第一次中風的時間當作死亡時間*/	
 %macro after2008_stroke_interval_surv; 
 	%do i=2009 %to 2011; 
 		%if  &i. = 2009 %then %do;
@@ -257,6 +258,7 @@ run;
 
 		/*interval_surv_2009 年為正， surv_first_interval 就是 interval_surv_2009 ，就不需管2010 2011 是正還是負
 		   簡單來說就是取"第一個"為正的值
+		   因為沒有記錄病人死亡的時間，因此把第一次中風的時間當作死亡時間
 		   如果要取"最後一個"為正的值，可以從後面遍歷*/	
 		/*&i. = 2009 新增surv_first_interval的欄位，並在 interval_surv_&i. >= 0 時賦值給surv_first_interval*/	
 		%if  &i. = 2009 %then %do;	
@@ -448,7 +450,7 @@ quit;
 
 
 /*針對2007年計算過去病史比例*/
-/*目標疾病 : ??壓 ??糖 ??脂 慢性腎臟病 慢性阻塞性肺部疾病*/
+/*目標疾病 : ??壓  ??糖  ??脂  慢性腎臟病  慢性阻塞性肺部疾*/
 %macro before_2007_disease_1; 	
 	/*先創建macro variable  condition1_1 ~ condition5_4*/
 	%do i=1 %to 5;

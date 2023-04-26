@@ -329,6 +329,7 @@ show_html(stroke_percentage['LST'] , 'stroke_percentage')
 
 # 存活分析
 # 需要2008缺血性心臟病患者最早入院日期，與該群人最早中風的住院日期
+# 因為沒有記錄病人死亡的時間，因此把第一次中風的時間當作死亡時間
 for i in range(2009 , 2011 + 1):
     if i == 2009:
         sas.submit("data NH.Dd2008_target_stroke_surv ; \
@@ -351,7 +352,8 @@ for i in range(2009 , 2011 + 1):
                   
          
     # interval_surv_2009 年為正， surv_first_interval 就是 interval_surv_2009 ，就不需管2010 2011 是正還是負，簡單來說就是取"第一個"為正的值
-    # 如果要取"最後一個"為正的值，可以從後面遍歷*/	
+    # 其實就是把"第一個"為正的值當作存活時間
+    # 如果要取"最後一個"為正的值，可以從後面遍歷
     # i = 2009 新增surv_first_interval的欄位，並在 interval_surv_i >= 0 時賦值給surv_first_interval            
     if i == 2009:
         sas.submit("data NH.Dd2008_target_stroke_surv ; \
